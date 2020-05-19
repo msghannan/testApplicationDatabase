@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace TestApplicationDatabase.Models
 {
-    public class Test
+    public class QuestionTest
     {
+        public int QuestionId { get; set; }
+        public Question Question { get; set; }
         public int TestId { get; set; }
-        public string TestName { get; set; }
+        public Test Test { get; set; }
     }
 }

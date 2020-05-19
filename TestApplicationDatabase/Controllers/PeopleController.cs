@@ -12,23 +12,23 @@ namespace TestApplicationDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonsController : ControllerBase
+    public class PeopleController : ControllerBase
     {
         private readonly TestApplicationDatabaseContext _context;
 
-        public PersonsController(TestApplicationDatabaseContext context)
+        public PeopleController(TestApplicationDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Persons
+        // GET: api/People
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
         {
             return await _context.Person.ToListAsync();
         }
 
-        // GET: api/Persons/5
+        // GET: api/People/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> GetPerson(int id)
         {
@@ -42,13 +42,13 @@ namespace TestApplicationDatabase.Controllers
             return person;
         }
 
-        // PUT: api/Persons/5
+        // PUT: api/People/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPerson(int id, Person person)
         {
-            if (id != person.PersonID)
+            if (id != person.PersonId)
             {
                 return BadRequest();
             }
@@ -74,7 +74,7 @@ namespace TestApplicationDatabase.Controllers
             return NoContent();
         }
 
-        // POST: api/Persons
+        // POST: api/People
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
@@ -83,10 +83,10 @@ namespace TestApplicationDatabase.Controllers
             _context.Person.Add(person);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPerson", new { id = person.PersonID }, person);
+            return CreatedAtAction("GetPerson", new { id = person.PersonId }, person);
         }
 
-        // DELETE: api/Persons/5
+        // DELETE: api/People/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Person>> DeletePerson(int id)
         {
@@ -104,7 +104,7 @@ namespace TestApplicationDatabase.Controllers
 
         private bool PersonExists(int id)
         {
-            return _context.Person.Any(e => e.PersonID == id);
+            return _context.Person.Any(e => e.PersonId == id);
         }
     }
 }

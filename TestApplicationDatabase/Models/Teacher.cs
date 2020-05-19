@@ -7,6 +7,6 @@ namespace TestApplicationDatabase.Models
 {
     public class Teacher
     {
-        public int TeacherID { get; set; }
+        public int TeacherId { get; set; }
     }
 }

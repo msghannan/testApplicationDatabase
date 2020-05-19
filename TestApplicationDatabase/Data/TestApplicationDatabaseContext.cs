@@ -23,5 +23,19 @@ namespace TestApplicationDatabase.Data
         public DbSet<TestApplicationDatabase.Models.Teacher> Teacher { get; set; }
 
         public DbSet<TestApplicationDatabase.Models.Test> Test { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Models.QuestionTest>().HasKey(qt => new { qt.QuestionId, qt.TestId });
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Models.StudentTest>().HasKey(st => new { st.StudentId, st.TestId });
+        }
+
+        public DbSet<TestApplicationDatabase.Models.StudentTest> StudentTest { get; set; }
+
+        public DbSet<TestApplicationDatabase.Models.QuestionTest> QuestionTest { get; set; }
+
     }
 }

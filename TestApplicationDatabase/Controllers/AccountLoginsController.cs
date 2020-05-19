@@ -12,48 +12,48 @@ namespace TestApplicationDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TeachersController : ControllerBase
+    public class AccountLoginsController : ControllerBase
     {
         private readonly TestApplicationDatabaseContext _context;
 
-        public TeachersController(TestApplicationDatabaseContext context)
+        public AccountLoginsController(TestApplicationDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Teachers
+        // GET: api/AccountLogins
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeacher()
+        public async Task<ActionResult<IEnumerable<AccountLogin>>> GetAccountLogin()
         {
-            return await _context.Teacher.ToListAsync();
+            return await _context.AccountLogin.ToListAsync();
         }
 
-        // GET: api/Teachers/5
+        // GET: api/AccountLogins/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacher(int id)
+        public async Task<ActionResult<AccountLogin>> GetAccountLogin(int id)
         {
-            var teacher = await _context.Teacher.FindAsync(id);
+            var accountLogin = await _context.AccountLogin.FindAsync(id);
 
-            if (teacher == null)
+            if (accountLogin == null)
             {
                 return NotFound();
             }
 
-            return teacher;
+            return accountLogin;
         }
 
-        // PUT: api/Teachers/5
+        // PUT: api/AccountLogins/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
+        public async Task<IActionResult> PutAccountLogin(int id, AccountLogin accountLogin)
         {
-            if (id != teacher.TeacherId)
+            if (id != accountLogin.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(teacher).State = EntityState.Modified;
+            _context.Entry(accountLogin).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace TestApplicationDatabase.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TeacherExists(id))
+                if (!AccountLoginExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace TestApplicationDatabase.Controllers
             return NoContent();
         }
 
-        // POST: api/Teachers
+        // POST: api/AccountLogins
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
+        public async Task<ActionResult<AccountLogin>> PostAccountLogin(AccountLogin accountLogin)
         {
-            _context.Teacher.Add(teacher);
+            _context.AccountLogin.Add(accountLogin);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTeacher", new { id = teacher.TeacherId }, teacher);
+            return CreatedAtAction("GetAccountLogin", new { id = accountLogin.Id }, accountLogin);
         }
 
-        // DELETE: api/Teachers/5
+        // DELETE: api/AccountLogins/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Teacher>> DeleteTeacher(int id)
+        public async Task<ActionResult<AccountLogin>> DeleteAccountLogin(int id)
         {
-            var teacher = await _context.Teacher.FindAsync(id);
-            if (teacher == null)
+            var accountLogin = await _context.AccountLogin.FindAsync(id);
+            if (accountLogin == null)
             {
                 return NotFound();
             }
 
-            _context.Teacher.Remove(teacher);
+            _context.AccountLogin.Remove(accountLogin);
             await _context.SaveChangesAsync();
 
-            return teacher;
+            return accountLogin;
         }
 
-        private bool TeacherExists(int id)
+        private bool AccountLoginExists(int id)
         {
-            return _context.Teacher.Any(e => e.TeacherId == id);
+            return _context.AccountLogin.Any(e => e.Id == id);
         }
     }
 }

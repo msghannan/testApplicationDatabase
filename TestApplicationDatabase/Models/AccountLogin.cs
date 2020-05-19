@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 
 namespace TestApplicationDatabase.Models
 {
-    public class Question
+    public class AccountLogin
     {
         public int Id { get; set; }
-        public string Quest { get; set; }
-
-        public List<string> ChoiseList = new List<string>() ;
-
-       
-
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public char Title { get; set; }
+  
     }
 }
 

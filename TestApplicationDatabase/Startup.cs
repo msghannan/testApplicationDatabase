@@ -31,6 +31,9 @@ namespace TestApplicationDatabase
 
             services.AddDbContext<TestApplicationDatabaseContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("TestApplicationDatabaseContext")));
+
+            services.AddDbContext<TestApplicationDatabaseContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("TestApplicationDatabaseContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

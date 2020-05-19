@@ -12,48 +12,48 @@ namespace TestApplicationDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentTestsController : ControllerBase
+    public class PersonTestsController : ControllerBase
     {
         private readonly TestApplicationDatabaseContext _context;
 
-        public StudentTestsController(TestApplicationDatabaseContext context)
+        public PersonTestsController(TestApplicationDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/StudentTests
+        // GET: api/PersonTests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StudentTest>>> GetStudentTest()
+        public async Task<ActionResult<IEnumerable<PersonTest>>> GetPersonTest()
         {
-            return await _context.StudentTest.ToListAsync();
+            return await _context.PersonTest.ToListAsync();
         }
 
-        // GET: api/StudentTests/5
+        // GET: api/PersonTests/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<StudentTest>> GetStudentTest(int id)
+        public async Task<ActionResult<PersonTest>> GetPersonTest(int id)
         {
-            var studentTest = await _context.StudentTest.FindAsync(id);
+            var personTest = await _context.PersonTest.FindAsync(id);
 
-            if (studentTest == null)
+            if (personTest == null)
             {
                 return NotFound();
             }
 
-            return studentTest;
+            return personTest;
         }
 
-        // PUT: api/StudentTests/5
+        // PUT: api/PersonTests/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudentTest(int id, StudentTest studentTest)
+        public async Task<IActionResult> PutPersonTest(int id, PersonTest personTest)
         {
-            if (id != studentTest.StudentId)
+            if (id != personTest.PersonId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(studentTest).State = EntityState.Modified;
+            _context.Entry(personTest).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace TestApplicationDatabase.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentTestExists(id))
+                if (!PersonTestExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace TestApplicationDatabase.Controllers
             return NoContent();
         }
 
-        // POST: api/StudentTests
+        // POST: api/PersonTests
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<StudentTest>> PostStudentTest(StudentTest studentTest)
+        public async Task<ActionResult<PersonTest>> PostPersonTest(PersonTest personTest)
         {
-            _context.StudentTest.Add(studentTest);
+            _context.PersonTest.Add(personTest);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (StudentTestExists(studentTest.StudentId))
+                if (PersonTestExists(personTest.PersonId))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace TestApplicationDatabase.Controllers
                 }
             }
 
-            return CreatedAtAction("GetStudentTest", new { id = studentTest.StudentId }, studentTest);
+            return CreatedAtAction("GetPersonTest", new { id = personTest.PersonId }, personTest);
         }
 
-        // DELETE: api/StudentTests/5
+        // DELETE: api/PersonTests/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<StudentTest>> DeleteStudentTest(int id)
+        public async Task<ActionResult<PersonTest>> DeletePersonTest(int id)
         {
-            var studentTest = await _context.StudentTest.FindAsync(id);
-            if (studentTest == null)
+            var personTest = await _context.PersonTest.FindAsync(id);
+            if (personTest == null)
             {
                 return NotFound();
             }
 
-            _context.StudentTest.Remove(studentTest);
+            _context.PersonTest.Remove(personTest);
             await _context.SaveChangesAsync();
 
-            return studentTest;
+            return personTest;
         }
 
-        private bool StudentTestExists(int id)
+        private bool PersonTestExists(int id)
         {
-            return _context.StudentTest.Any(e => e.StudentId == id);
+            return _context.PersonTest.Any(e => e.PersonId == id);
         }
     }
 }

@@ -53,6 +53,41 @@ namespace TestApplicationDatabase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    firstName = table.Column<string>(nullable: true),
+                    lastName = table.Column<string>(nullable: true),
+                    email = table.Column<string>(nullable: true),
+                    phoNum = table.Column<string>(nullable: true),
+                    title = table.Column<string>(nullable: false),
+                    Grade = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teacher",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    firstName = table.Column<string>(nullable: true),
+                    lastName = table.Column<string>(nullable: true),
+                    email = table.Column<string>(nullable: true),
+                    phoNum = table.Column<string>(nullable: true),
+                    title = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teacher", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Test",
                 columns: table => new
                 {
@@ -136,6 +171,12 @@ namespace TestApplicationDatabase.Migrations
 
             migrationBuilder.DropTable(
                 name: "QuestionTest");
+
+            migrationBuilder.DropTable(
+                name: "Student");
+
+            migrationBuilder.DropTable(
+                name: "Teacher");
 
             migrationBuilder.DropTable(
                 name: "Person");

@@ -38,5 +38,7 @@ namespace TestApplicationDatabase.Data
         public DbSet<TestApplicationDatabase.Models.Student> Student { get; set; }
 
         public DbSet<TestApplicationDatabase.Models.Teacher> Teacher { get; set; }
+
+        public DbSet<TestApplicationDatabase.Models.StudentsResults> StudentsResults { get; set; }
     }
 }

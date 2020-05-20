@@ -116,7 +116,7 @@ namespace TestApplicationDatabase.Migrations
 
             modelBuilder.Entity("TestApplicationDatabase.Models.Student", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("StudentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -140,9 +140,33 @@ namespace TestApplicationDatabase.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.HasKey("Id");
+                    b.HasKey("StudentId");
 
                     b.ToTable("Student");
+                });
+
+            modelBuilder.Entity("TestApplicationDatabase.Models.StudentsResults", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Grade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentFirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TestName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StudentsResults");
                 });
 
             modelBuilder.Entity("TestApplicationDatabase.Models.Teacher", b =>

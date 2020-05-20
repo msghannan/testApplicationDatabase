@@ -14,10 +14,6 @@ namespace TestApplicationDatabase.Models
         public string phoNum { get; set; }
         public char title { get; set; }
 
-       
-
-
-
     }
 }
 

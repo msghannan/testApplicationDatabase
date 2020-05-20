@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApplicationDatabase.Migrations
 {
-    public partial class Initial : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,7 +56,7 @@ namespace TestApplicationDatabase.Migrations
                 name: "Student",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    StudentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     firstName = table.Column<string>(nullable: true),
                     lastName = table.Column<string>(nullable: true),
@@ -67,7 +67,23 @@ namespace TestApplicationDatabase.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student", x => x.Id);
+                    table.PrimaryKey("PK_Student", x => x.StudentId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentsResults",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TestName = table.Column<string>(nullable: true),
+                    StudentFirstName = table.Column<string>(nullable: true),
+                    StudentLastName = table.Column<string>(nullable: true),
+                    Grade = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentsResults", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,6 +190,9 @@ namespace TestApplicationDatabase.Migrations
 
             migrationBuilder.DropTable(
                 name: "Student");
+
+            migrationBuilder.DropTable(
+                name: "StudentsResults");
 
             migrationBuilder.DropTable(
                 name: "Teacher");

@@ -34,5 +34,9 @@ namespace TestApplicationDatabase.Data
         public DbSet<TestApplicationDatabase.Models.PersonTest> PersonTest { get; set; }
 
         public DbSet<TestApplicationDatabase.Models.QuestionTest> QuestionTest { get; set; }
+
+        public DbSet<TestApplicationDatabase.Models.Student> Student { get; set; }
+
+        public DbSet<TestApplicationDatabase.Models.Teacher> Teacher { get; set; }
     }
 }

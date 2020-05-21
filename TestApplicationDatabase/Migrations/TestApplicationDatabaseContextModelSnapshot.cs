@@ -19,7 +19,7 @@ namespace TestApplicationDatabase.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TestApplicationDatabase.Models.AccountLogin", b =>
+            modelBuilder.Entity("TestApplicationDatabase.Models.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -29,16 +29,18 @@ namespace TestApplicationDatabase.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AccountLogin");
+                    b.HasIndex("PersonId")
+                        .IsUnique();
+
+                    b.ToTable("Account");
                 });
 
             modelBuilder.Entity("TestApplicationDatabase.Models.Person", b =>
@@ -48,19 +50,19 @@ namespace TestApplicationDatabase.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("firstName")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("lastName")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("phoNum")
+                    b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
@@ -77,9 +79,13 @@ namespace TestApplicationDatabase.Migrations
                     b.Property<int>("TestId")
                         .HasColumnType("int");
 
-                    b.HasKey("PersonId", "TestId");
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("TestId");
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
+
+                    b.HasKey("PersonId", "TestId");
 
                     b.ToTable("PersonTest");
                 });
@@ -114,35 +120,28 @@ namespace TestApplicationDatabase.Migrations
                     b.ToTable("QuestionTest");
                 });
 
-            modelBuilder.Entity("TestApplicationDatabase.Models.Student", b =>
+            modelBuilder.Entity("TestApplicationDatabase.Models.Role", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Grade")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Student")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("firstName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Teacher")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("lastName")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                    b.Property<string>("phoNum")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("PersonId")
+                        .IsUnique();
 
-                    b.Property<string>("title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.HasKey("StudentId");
-
-                    b.ToTable("Student");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("TestApplicationDatabase.Models.StudentsResults", b =>
@@ -169,66 +168,35 @@ namespace TestApplicationDatabase.Migrations
                     b.ToTable("StudentsResults");
                 });
 
-            modelBuilder.Entity("TestApplicationDatabase.Models.Teacher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("firstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("lastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("phoNum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Teacher");
-                });
-
             modelBuilder.Entity("TestApplicationDatabase.Models.Test", b =>
                 {
-                    b.Property<int>("TestId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MaxPoints")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("TestDate")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<double>("MaxPoints")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("int");
 
                     b.Property<string>("TestName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TestId");
+                    b.HasKey("ID");
 
                     b.ToTable("Test");
                 });
 
-            modelBuilder.Entity("TestApplicationDatabase.Models.PersonTest", b =>
+            modelBuilder.Entity("TestApplicationDatabase.Models.Account", b =>
                 {
-                    b.HasOne("TestApplicationDatabase.Models.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TestApplicationDatabase.Models.Test", "Test")
-                        .WithMany()
-                        .HasForeignKey("TestId")
+                    b.HasOne("TestApplicationDatabase.Models.Person", null)
+                        .WithOne("Account")
+                        .HasForeignKey("TestApplicationDatabase.Models.Account", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -244,6 +212,15 @@ namespace TestApplicationDatabase.Migrations
                     b.HasOne("TestApplicationDatabase.Models.Test", "Test")
                         .WithMany()
                         .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TestApplicationDatabase.Models.Role", b =>
+                {
+                    b.HasOne("TestApplicationDatabase.Models.Person", null)
+                        .WithOne("Role")
+                        .HasForeignKey("TestApplicationDatabase.Models.Role", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

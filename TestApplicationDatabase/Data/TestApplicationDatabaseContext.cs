@@ -14,7 +14,7 @@ namespace TestApplicationDatabase.Data
         {
         }
 
-        public DbSet<TestApplicationDatabase.Models.AccountLogin> AccountLogin { get; set; }
+        public DbSet<TestApplicationDatabase.Models.Account> Account { get; set; }
 
         public DbSet<TestApplicationDatabase.Models.Person> Person { get; set; }
 
@@ -35,10 +35,8 @@ namespace TestApplicationDatabase.Data
 
         public DbSet<TestApplicationDatabase.Models.QuestionTest> QuestionTest { get; set; }
 
-        public DbSet<TestApplicationDatabase.Models.Student> Student { get; set; }
-
-        public DbSet<TestApplicationDatabase.Models.Teacher> Teacher { get; set; }
 
         public DbSet<TestApplicationDatabase.Models.StudentsResults> StudentsResults { get; set; }
+        public DbSet<TestApplicationDatabase.Models.Role> Role { get; internal set; }
     }
 }

@@ -30,16 +30,18 @@ namespace TestApplicationDatabase.Controllers
 
         // GET: api/PersonTests/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PersonTest>> GetPersonTest(int id)
+        public async Task<ActionResult<Test>> GetPersonTest(int id)
         {
-            var personTest = await _context.PersonTest.FindAsync(id);
+            var persontests = _context.PersonTest.Where(x => x.PersonId == id).First();
+            var test2 = _context.Test.Where(x => x.ID == persontests.TestId).FirstOrDefault();
 
-            if (personTest == null)
+
+            if (test2 == null)
             {
                 return NotFound();
             }
 
-            return personTest;
+            return test2;
         }
 
         // PUT: api/PersonTests/5

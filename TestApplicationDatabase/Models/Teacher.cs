@@ -13,6 +13,7 @@ namespace TestApplicationDatabase.Models
         public string email { get; set; }
         public string phoNum { get; set; }
         public char title { get; set; }
+        public Person Person { get; set; }
 
     }
 }

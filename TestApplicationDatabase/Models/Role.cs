@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace TestApplicationDatabase.Models
 {
-    public class AccountLogin
+    public class Role
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public char Title { get; set; }
-
+        public bool Teacher { get; set; }
+        public bool Student { get; set; }
+        public int PersonId { get; set; }
     }
 }

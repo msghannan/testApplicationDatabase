@@ -15,10 +15,3 @@ namespace TestApplicationDatabase.Models
         public double Score { get; set; }
     }
 }
-
-
-/*
- 
- *, 3, 2, 25.5 
-
- */

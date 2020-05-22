@@ -15,9 +15,3 @@ namespace TestApplicationDatabase.Models
 
     }
 }
-
-
-/*
- * 1, Antagningstest, 50, 2020-05-05 
- * 2, Matte, 30, 2030-02-02
-*/

@@ -29,7 +29,7 @@ namespace TestApplicationDatabase.Controllers
             _context.Person.Add(person);
            var result = await _context.SaveChangesAsync();
 
-            if(result == 1)
+            if(result > 0)
             {
                 return Ok();
             }

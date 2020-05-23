@@ -13,5 +13,7 @@ namespace TestApplicationDatabase.Models
         public double MaxPoints { get; set; }
         public DateTime Date { get; set; }
 
+        public List<Question> QuestionList = new List<Question>();
+
     }
 }

@@ -38,5 +38,6 @@ namespace TestApplicationDatabase.Data
 
         public DbSet<TestApplicationDatabase.Models.StudentsResults> StudentsResults { get; set; }
         public DbSet<TestApplicationDatabase.Models.Role> Role { get; internal set; }
+        public DbSet<TestApplicationDatabase.Models.Answer> Answer { get; set; }
     }
 }

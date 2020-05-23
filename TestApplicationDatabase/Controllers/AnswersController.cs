@@ -12,48 +12,48 @@ namespace TestApplicationDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestsController : ControllerBase
+    public class AnswersController : ControllerBase
     {
         private readonly TestApplicationDatabaseContext _context;
 
-        public TestsController(TestApplicationDatabaseContext context)
+        public AnswersController(TestApplicationDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Tests
+        // GET: api/Answers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Test>>> GetTest()
+        public async Task<ActionResult<IEnumerable<Answer>>> GetAnswer()
         {
-            return await _context.Test.ToListAsync();
+            return await _context.Answer.ToListAsync();
         }
 
-        // GET: api/Tests/5
+        // GET: api/Answers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Test>> GetTest(int id)
+        public async Task<ActionResult<Answer>> GetAnswer(int id)
         {
-            var test = await _context.Test.FindAsync(id);
+            var answer = await _context.Answer.FindAsync(id);
 
-            if (test == null)
+            if (answer == null)
             {
                 return NotFound();
             }
 
-            return test;
+            return answer;
         }
 
-        // PUT: api/Tests/5
+        // PUT: api/Answers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTest(int id, Test test)
+        public async Task<IActionResult> PutAnswer(int id, Answer answer)
         {
-            if (id != test.ID)
+            if (id != answer.AnswerId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(test).State = EntityState.Modified;
+            _context.Entry(answer).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace TestApplicationDatabase.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TestExists(id))
+                if (!AnswerExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace TestApplicationDatabase.Controllers
             return NoContent();
         }
 
-        // POST: api/Tests
+        // POST: api/Answers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Test>> PostTest(Test test)
+        public async Task<ActionResult<Answer>> PostAnswer(Answer answer)
         {
-            _context.Test.Add(test);
+            _context.Answer.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTest", new { id = test.ID }, test);
+            return CreatedAtAction("GetAnswer", new { id = answer.AnswerId }, answer);
         }
 
-        // DELETE: api/Tests/5
+        // DELETE: api/Answers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Test>> DeleteTest(int id)
+        public async Task<ActionResult<Answer>> DeleteAnswer(int id)
         {
-            var test = await _context.Test.FindAsync(id);
-            if (test == null)
+            var answer = await _context.Answer.FindAsync(id);
+            if (answer == null)
             {
                 return NotFound();
             }
 
-            _context.Test.Remove(test);
+            _context.Answer.Remove(answer);
             await _context.SaveChangesAsync();
 
-            return test;
+            return answer;
         }
 
-        private bool TestExists(int id)
+        private bool AnswerExists(int id)
         {
-            return _context.Test.Any(e => e.ID == id);
+            return _context.Answer.Any(e => e.AnswerId == id);
         }
     }
 }

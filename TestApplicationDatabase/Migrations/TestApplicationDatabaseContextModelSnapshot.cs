@@ -43,6 +43,27 @@ namespace TestApplicationDatabase.Migrations
                     b.ToTable("Account");
                 });
 
+            modelBuilder.Entity("TestApplicationDatabase.Models.Answer", b =>
+                {
+                    b.Property<int>("AnswerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Ans")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("CorrectAnswer")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnswerId");
+
+                    b.ToTable("Answer");
+                });
+
             modelBuilder.Entity("TestApplicationDatabase.Models.Person", b =>
                 {
                     b.Property<int>("Id")

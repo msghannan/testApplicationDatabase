@@ -12,48 +12,48 @@ namespace TestApplicationDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestsController : ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly TestApplicationDatabaseContext _context;
 
-        public TestsController(TestApplicationDatabaseContext context)
+        public RolesController(TestApplicationDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Tests
+        // GET: api/Roles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Test>>> GetTest()
+        public async Task<ActionResult<IEnumerable<Role>>> GetRole()
         {
-            return await _context.Test.ToListAsync();
+            return await _context.Role.ToListAsync();
         }
 
-        // GET: api/Tests/5
+        // GET: api/Roles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Test>> GetTest(int id)
+        public async Task<ActionResult<Role>> GetRole(int id)
         {
-            var test = await _context.Test.FindAsync(id);
+            var role = await _context.Role.FindAsync(id);
 
-            if (test == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return test;
+            return role;
         }
 
-        // PUT: api/Tests/5
+        // PUT: api/Roles/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTest(int id, Test test)
+        public async Task<IActionResult> PutRole(int id, Role role)
         {
-            if (id != test.ID)
+            if (id != role.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(test).State = EntityState.Modified;
+            _context.Entry(role).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace TestApplicationDatabase.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TestExists(id))
+                if (!RoleExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace TestApplicationDatabase.Controllers
             return NoContent();
         }
 
-        // POST: api/Tests
+        // POST: api/Roles
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Test>> PostTest(Test test)
+        public async Task<ActionResult<Role>> PostRole(Role role)
         {
-            _context.Test.Add(test);
+            _context.Role.Add(role);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTest", new { id = test.ID }, test);
+            return CreatedAtAction("GetRole", new { id = role.Id }, role);
         }
 
-        // DELETE: api/Tests/5
+        // DELETE: api/Roles/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Test>> DeleteTest(int id)
+        public async Task<ActionResult<Role>> DeleteRole(int id)
         {
-            var test = await _context.Test.FindAsync(id);
-            if (test == null)
+            var role = await _context.Role.FindAsync(id);
+            if (role == null)
             {
                 return NotFound();
             }
 
-            _context.Test.Remove(test);
+            _context.Role.Remove(role);
             await _context.SaveChangesAsync();
 
-            return test;
+            return role;
         }
 
-        private bool TestExists(int id)
+        private bool RoleExists(int id)
         {
-            return _context.Test.Any(e => e.ID == id);
+            return _context.Role.Any(e => e.Id == id);
         }
     }
 }

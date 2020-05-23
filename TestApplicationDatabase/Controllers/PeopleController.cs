@@ -12,48 +12,48 @@ namespace TestApplicationDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestsController : ControllerBase
+    public class PeopleController : ControllerBase
     {
         private readonly TestApplicationDatabaseContext _context;
 
-        public TestsController(TestApplicationDatabaseContext context)
+        public PeopleController(TestApplicationDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Tests
+        // GET: api/People
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Test>>> GetTest()
+        public async Task<ActionResult<IEnumerable<Person>>> GetPerson()
         {
-            return await _context.Test.ToListAsync();
+            return await _context.Person.ToListAsync();
         }
 
-        // GET: api/Tests/5
+        // GET: api/People/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Test>> GetTest(int id)
+        public async Task<ActionResult<Person>> GetPerson(int id)
         {
-            var test = await _context.Test.FindAsync(id);
+            var person = await _context.Person.FindAsync(id);
 
-            if (test == null)
+            if (person == null)
             {
                 return NotFound();
             }
 
-            return test;
+            return person;
         }
 
-        // PUT: api/Tests/5
+        // PUT: api/People/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTest(int id, Test test)
+        public async Task<IActionResult> PutPerson(int id, Person person)
         {
-            if (id != test.ID)
+            if (id != person.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(test).State = EntityState.Modified;
+            _context.Entry(person).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace TestApplicationDatabase.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TestExists(id))
+                if (!PersonExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace TestApplicationDatabase.Controllers
             return NoContent();
         }
 
-        // POST: api/Tests
+        // POST: api/People
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Test>> PostTest(Test test)
+        public async Task<ActionResult<Person>> PostPerson(Person person)
         {
-            _context.Test.Add(test);
+            _context.Person.Add(person);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTest", new { id = test.ID }, test);
+            return CreatedAtAction("GetPerson", new { id = person.Id }, person);
         }
 
-        // DELETE: api/Tests/5
+        // DELETE: api/People/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Test>> DeleteTest(int id)
+        public async Task<ActionResult<Person>> DeletePerson(int id)
         {
-            var test = await _context.Test.FindAsync(id);
-            if (test == null)
+            var person = await _context.Person.FindAsync(id);
+            if (person == null)
             {
                 return NotFound();
             }
 
-            _context.Test.Remove(test);
+            _context.Person.Remove(person);
             await _context.SaveChangesAsync();
 
-            return test;
+            return person;
         }
 
-        private bool TestExists(int id)
+        private bool PersonExists(int id)
         {
-            return _context.Test.Any(e => e.ID == id);
+            return _context.Person.Any(e => e.Id == id);
         }
     }
 }

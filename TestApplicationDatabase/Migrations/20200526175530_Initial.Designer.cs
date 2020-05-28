@@ -10,7 +10,7 @@ using TestApplicationDatabase.Data;
 namespace TestApplicationDatabase.Migrations
 {
     [DbContext(typeof(TestApplicationDatabaseContext))]
-    [Migration("20200522232743_Initial")]
+    [Migration("20200526175530_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,7 +123,12 @@ namespace TestApplicationDatabase.Migrations
                     b.Property<string>("Quest")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TestID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TestID");
 
                     b.ToTable("Question");
                 });
@@ -222,6 +227,13 @@ namespace TestApplicationDatabase.Migrations
                         .HasForeignKey("TestApplicationDatabase.Models.Account", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TestApplicationDatabase.Models.Question", b =>
+                {
+                    b.HasOne("TestApplicationDatabase.Models.Test", "Test")
+                        .WithMany()
+                        .HasForeignKey("TestID");
                 });
 
             modelBuilder.Entity("TestApplicationDatabase.Models.QuestionTest", b =>

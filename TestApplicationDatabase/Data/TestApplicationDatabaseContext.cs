@@ -22,15 +22,7 @@ namespace TestApplicationDatabase.Data
 
         public DbSet<TestApplicationDatabase.Models.Question> Question { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Models.PersonTest>().HasKey(pt => new { pt.PersonId, pt.TestId });
-
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Models.QuestionTest>().HasKey(qt => new { qt.QuestionId, qt.TestId });
-        }
-
+       
         public DbSet<TestApplicationDatabase.Models.PersonTest> PersonTest { get; set; }
 
         public DbSet<TestApplicationDatabase.Models.QuestionTest> QuestionTest { get; set; }
@@ -39,5 +31,44 @@ namespace TestApplicationDatabase.Data
         public DbSet<TestApplicationDatabase.Models.StudentsResults> StudentsResults { get; set; }
         public DbSet<TestApplicationDatabase.Models.Role> Role { get; internal set; }
         public DbSet<TestApplicationDatabase.Models.Answer> Answer { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Test> Tests { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Many to Many
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Models.PersonTest>().HasKey(pt => new { pt.PersonId, pt.TestId });
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Models.QuestionTest>().HasKey(qt => new { qt.QuestionId, qt.TestId });
+            // One to Many
+            //modelBuilder.Entity<Question>()
+            //    .HasRequired<Test>(s => s.CurrentGrade)
+            //    .WithMany(g => g.Students)
+            //    .HasForeignKey<int>(s => s.TestId);
+
+            //}
+            //public class SchoolContext : DbContext
+            //{
+            //    public DbSet<Student> Students { get; set; }
+            //    public DbSet<Grade> Grades { get; set; }
+
+            //    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+            //    {
+            //        configures one-to - many relationship
+            //        modelBuilder.Entity<Student>()
+            //            .HasRequired<Grade>(s => s.CurrentGrade)
+            //            .WithMany(g => g.Students)
+            //            .HasForeignKey<int>(s => s.CurrentGradeId);
+            //    }
+            //}
+        }
     }
+
 }
+
+
+       
+    
+

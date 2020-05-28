@@ -15,5 +15,9 @@ namespace TestApplicationDatabase.Models
 
         public List<Question> QuestionList = new List<Question>();
 
+
+        //public ICollection<Question> Questions { get; set; }
+      
+
     }
 }

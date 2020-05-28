@@ -147,30 +147,6 @@ namespace TestApplicationDatabase.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "QuestionTest",
-                columns: table => new
-                {
-                    QuestionId = table.Column<int>(nullable: false),
-                    TestId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_QuestionTest", x => new { x.QuestionId, x.TestId });
-                    table.ForeignKey(
-                        name: "FK_QuestionTest_Question_QuestionId",
-                        column: x => x.QuestionId,
-                        principalTable: "Question",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_QuestionTest_Test_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Test",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Account_PersonId",
                 table: "Account",
@@ -181,11 +157,6 @@ namespace TestApplicationDatabase.Migrations
                 name: "IX_Question_TestID",
                 table: "Question",
                 column: "TestID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_QuestionTest_TestId",
-                table: "QuestionTest",
-                column: "TestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Role_PersonId",
@@ -206,7 +177,7 @@ namespace TestApplicationDatabase.Migrations
                 name: "PersonTest");
 
             migrationBuilder.DropTable(
-                name: "QuestionTest");
+                name: "Question");
 
             migrationBuilder.DropTable(
                 name: "Role");
@@ -215,13 +186,10 @@ namespace TestApplicationDatabase.Migrations
                 name: "StudentsResults");
 
             migrationBuilder.DropTable(
-                name: "Question");
+                name: "Test");
 
             migrationBuilder.DropTable(
                 name: "Person");
-
-            migrationBuilder.DropTable(
-                name: "Test");
         }
     }
 }

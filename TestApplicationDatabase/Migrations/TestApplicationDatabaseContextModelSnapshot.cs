@@ -131,21 +131,6 @@ namespace TestApplicationDatabase.Migrations
                     b.ToTable("Question");
                 });
 
-            modelBuilder.Entity("TestApplicationDatabase.Models.QuestionTest", b =>
-                {
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("QuestionId", "TestId");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("QuestionTest");
-                });
-
             modelBuilder.Entity("TestApplicationDatabase.Models.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -232,21 +217,6 @@ namespace TestApplicationDatabase.Migrations
                     b.HasOne("TestApplicationDatabase.Models.Test", "Test")
                         .WithMany()
                         .HasForeignKey("TestID");
-                });
-
-            modelBuilder.Entity("TestApplicationDatabase.Models.QuestionTest", b =>
-                {
-                    b.HasOne("TestApplicationDatabase.Models.Question", "Question")
-                        .WithMany()
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TestApplicationDatabase.Models.Test", "Test")
-                        .WithMany()
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("TestApplicationDatabase.Models.Role", b =>

@@ -12,6 +12,11 @@ namespace TestApplicationDatabase.Models
 
         public List<Answer> AnswerList = new List<Answer>();
 
+        public Test Test { get; set; }
+
+        //public int CurrentTestId { get; set; }
+        //public Test CurrentTest { get; set; }
+      
     }
 }
 

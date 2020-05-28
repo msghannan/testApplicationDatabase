@@ -54,19 +54,6 @@ namespace TestApplicationDatabase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Question",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Quest = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Question", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "StudentsResults",
                 columns: table => new
                 {
@@ -141,6 +128,26 @@ namespace TestApplicationDatabase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Question",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quest = table.Column<string>(nullable: true),
+                    TestID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Question", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Question_Test_TestID",
+                        column: x => x.TestID,
+                        principalTable: "Test",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "QuestionTest",
                 columns: table => new
                 {
@@ -169,6 +176,11 @@ namespace TestApplicationDatabase.Migrations
                 table: "Account",
                 column: "PersonId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Question_TestID",
+                table: "Question",
+                column: "TestID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionTest_TestId",
@@ -206,10 +218,10 @@ namespace TestApplicationDatabase.Migrations
                 name: "Question");
 
             migrationBuilder.DropTable(
-                name: "Test");
+                name: "Person");
 
             migrationBuilder.DropTable(
-                name: "Person");
+                name: "Test");
         }
     }
 }

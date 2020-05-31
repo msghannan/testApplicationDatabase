@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApplicationDatabase.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,7 +60,6 @@ namespace TestApplicationDatabase.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TestId = table.Column<int>(nullable: false),
                     TestName = table.Column<string>(nullable: true),
                     MaxPoints = table.Column<double>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false)
@@ -136,15 +135,15 @@ namespace TestApplicationDatabase.Migrations
                 name: "Answer",
                 columns: table => new
                 {
-                    AnswerId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Ans = table.Column<string>(nullable: true),
+                    AnswerText = table.Column<string>(nullable: true),
                     CorrectAnswer = table.Column<bool>(nullable: false),
                     QuestionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answer", x => x.AnswerId);
+                    table.PrimaryKey("PK_Answer", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Answer_Question_QuestionId",
                         column: x => x.QuestionId,

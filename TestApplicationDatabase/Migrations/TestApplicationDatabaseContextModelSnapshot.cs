@@ -45,12 +45,12 @@ namespace TestApplicationDatabase.Migrations
 
             modelBuilder.Entity("TestApplicationDatabase.Models.Answer", b =>
                 {
-                    b.Property<int>("AnswerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Ans")
+                    b.Property<string>("AnswerText")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("CorrectAnswer")
@@ -59,7 +59,7 @@ namespace TestApplicationDatabase.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
-                    b.HasKey("AnswerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
 
@@ -194,9 +194,6 @@ namespace TestApplicationDatabase.Migrations
                     b.Property<double>("MaxPoints")
                         .HasColumnType("float");
 
-                    b.Property<int>("TestId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TestName")
                         .HasColumnType("nvarchar(max)");
 
@@ -216,8 +213,8 @@ namespace TestApplicationDatabase.Migrations
 
             modelBuilder.Entity("TestApplicationDatabase.Models.Answer", b =>
                 {
-                    b.HasOne("TestApplicationDatabase.Models.Question", "Question")
-                        .WithMany()
+                    b.HasOne("TestApplicationDatabase.Models.Question", null)
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -225,8 +222,8 @@ namespace TestApplicationDatabase.Migrations
 
             modelBuilder.Entity("TestApplicationDatabase.Models.Question", b =>
                 {
-                    b.HasOne("TestApplicationDatabase.Models.Test", "Test")
-                        .WithMany()
+                    b.HasOne("TestApplicationDatabase.Models.Test", null)
+                        .WithMany("Questions")
                         .HasForeignKey("TestID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

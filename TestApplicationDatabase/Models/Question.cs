@@ -10,13 +10,9 @@ namespace TestApplicationDatabase.Models
         public int Id { get; set; }
         public string Quest { get; set; }
 
-        public List<Answer> AnswerList = new List<Answer>();
+        public List<Answer> Answers { get; set; }
 
-        public Test Test { get; set; }
         public int TestID { get; set; }
-
-        //public int CurrentTestId { get; set; }
-        //public Test CurrentTest { get; set; }
 
     }
 }

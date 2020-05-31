@@ -78,12 +78,27 @@ namespace TestApplicationDatabase.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Answer>> PostAnswer(Answer answer)
-        {
-            _context.Answer.Add(answer);
-            await _context.SaveChangesAsync();
+        //public async Task<ActionResult<Answer>> PostAnswer(Answer answer)
+        //{
+        //    _context.Answer.Add(answer);
+        //    await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAnswer", new { id = answer.AnswerId }, answer);
+        //    return CreatedAtAction("GetAnswer", new { id = answer.AnswerId }, answer);
+        //}
+        public async Task<ActionResult<List<Answer>>> PostAnswer(List<Answer> answerList)
+
+
+        {
+            foreach (var a in answerList)
+            {
+
+
+                var test = _context.Answer.Add(a);
+
+            }
+            var abc = await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         // DELETE: api/Answers/5

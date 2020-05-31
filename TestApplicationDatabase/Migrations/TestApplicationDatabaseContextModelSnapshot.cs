@@ -61,6 +61,8 @@ namespace TestApplicationDatabase.Migrations
 
                     b.HasKey("AnswerId");
 
+                    b.HasIndex("QuestionId");
+
                     b.ToTable("Answer");
                 });
 
@@ -121,7 +123,7 @@ namespace TestApplicationDatabase.Migrations
                     b.Property<string>("Quest")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TestID")
+                    b.Property<int>("TestID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -212,11 +214,22 @@ namespace TestApplicationDatabase.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TestApplicationDatabase.Models.Answer", b =>
+                {
+                    b.HasOne("TestApplicationDatabase.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TestApplicationDatabase.Models.Question", b =>
                 {
                     b.HasOne("TestApplicationDatabase.Models.Test", "Test")
                         .WithMany()
-                        .HasForeignKey("TestID");
+                        .HasForeignKey("TestID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TestApplicationDatabase.Models.Role", b =>

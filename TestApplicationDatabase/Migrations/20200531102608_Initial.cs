@@ -8,21 +8,6 @@ namespace TestApplicationDatabase.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Answer",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ans = table.Column<string>(nullable: true),
-                    CorrectAnswer = table.Column<bool>(nullable: false),
-                    QuestionId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Answer", x => x.AnswerId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Person",
                 columns: table => new
                 {
@@ -134,7 +119,7 @@ namespace TestApplicationDatabase.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quest = table.Column<string>(nullable: true),
-                    TestID = table.Column<int>(nullable: true)
+                    TestID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,7 +129,28 @@ namespace TestApplicationDatabase.Migrations
                         column: x => x.TestID,
                         principalTable: "Test",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Answer",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ans = table.Column<string>(nullable: true),
+                    CorrectAnswer = table.Column<bool>(nullable: false),
+                    QuestionId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answer", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_Answer_Question_QuestionId",
+                        column: x => x.QuestionId,
+                        principalTable: "Question",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -152,6 +158,11 @@ namespace TestApplicationDatabase.Migrations
                 table: "Account",
                 column: "PersonId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Answer_QuestionId",
+                table: "Answer",
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Question_TestID",
@@ -177,19 +188,19 @@ namespace TestApplicationDatabase.Migrations
                 name: "PersonTest");
 
             migrationBuilder.DropTable(
-                name: "Question");
-
-            migrationBuilder.DropTable(
                 name: "Role");
 
             migrationBuilder.DropTable(
                 name: "StudentsResults");
 
             migrationBuilder.DropTable(
-                name: "Test");
+                name: "Question");
 
             migrationBuilder.DropTable(
                 name: "Person");
+
+            migrationBuilder.DropTable(
+                name: "Test");
         }
     }
 }

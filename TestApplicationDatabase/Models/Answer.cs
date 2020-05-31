@@ -11,5 +11,8 @@ namespace TestApplicationDatabase.Models
         public string Ans { get; set; }
         public bool CorrectAnswer { get; set; }
         public int QuestionId { get; set; }
+
+        public Question Question { get; set; }
+        
     }
 }

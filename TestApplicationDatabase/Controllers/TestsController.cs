@@ -26,18 +26,18 @@ namespace TestApplicationDatabase.Controllers
         public async Task<ActionResult<IEnumerable<Test>>> GetTest()
         {
             var exams = await _context.Test.ToListAsync();
-            //var questions = await _context.Question.ToListAsync();
-            //var answers = await _context.Answer.ToListAsync();
+            var questions = await _context.Question.ToListAsync();
+            var answers = await _context.Answer.ToListAsync();
 
-            //foreach (var exam in exams)
-            //{
-            //    exam.Questions = questions.Where(x => x.TestID == exam.ID).ToList();
+            foreach (var exam in exams)
+            {
+                exam.Questions = questions.Where(x => x.TestID == exam.ID).ToList();
 
-            //    foreach (var question in exam.Questions)
-            //    {
-            //        question.Answers = answers.Where(x => x.QuestionId == question.Id).ToList();
-            //    }
-            //}
+                foreach (var question in exam.Questions)
+                {
+                    question.Answers = answers.Where(x => x.QuestionId == question.Id).ToList();
+                }
+            }
 
             return exams;
         }

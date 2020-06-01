@@ -10,7 +10,7 @@ using TestApplicationDatabase.Data;
 namespace TestApplicationDatabase.Migrations
 {
     [DbContext(typeof(TestApplicationDatabaseContext))]
-    [Migration("20200531230116_Init")]
+    [Migration("20200601002946_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

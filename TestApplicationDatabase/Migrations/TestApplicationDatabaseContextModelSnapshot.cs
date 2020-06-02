@@ -123,6 +123,9 @@ namespace TestApplicationDatabase.Migrations
                     b.Property<string>("Quest")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("QuestionPoint")
+                        .HasColumnType("int");
+
                     b.Property<int>("TestID")
                         .HasColumnType("int");
 
@@ -193,6 +196,9 @@ namespace TestApplicationDatabase.Migrations
 
                     b.Property<double>("MaxPoints")
                         .HasColumnType("float");
+
+                    b.Property<int>("NumberOfQuestions")
+                        .HasColumnType("int");
 
                     b.Property<string>("TestName")
                         .HasColumnType("nvarchar(max)");

@@ -10,8 +10,8 @@ using TestApplicationDatabase.Data;
 namespace TestApplicationDatabase.Migrations
 {
     [DbContext(typeof(TestApplicationDatabaseContext))]
-    [Migration("20200601002946_Init")]
-    partial class Init
+    [Migration("20200602123502_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,6 +125,9 @@ namespace TestApplicationDatabase.Migrations
                     b.Property<string>("Quest")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("QuestionPoint")
+                        .HasColumnType("int");
+
                     b.Property<int>("TestID")
                         .HasColumnType("int");
 
@@ -195,6 +198,9 @@ namespace TestApplicationDatabase.Migrations
 
                     b.Property<double>("MaxPoints")
                         .HasColumnType("float");
+
+                    b.Property<int>("NumberOfQuestions")
+                        .HasColumnType("int");
 
                     b.Property<string>("TestName")
                         .HasColumnType("nvarchar(max)");

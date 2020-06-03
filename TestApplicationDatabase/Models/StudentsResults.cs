@@ -8,9 +8,8 @@ namespace TestApplicationDatabase.Models
     public class StudentsResults
     {
         public int Id { get; set; }
-        public string TestName { get; set; }
-        public string StudentFirstName { get; set; }
-        public string StudentLastName { get; set; }
+        public Person Student { get; set; }
+        public Test Exam { get; set; }
         public string Grade { get; set; }
     }
 }

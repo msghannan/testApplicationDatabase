@@ -10,19 +10,11 @@ namespace TestApplicationDatabase.Models
         public int ID { get; set; }
         public string TestName { get; set; }
         public double MaxPoints { get; set; }
-        public int NumberOfQuestions { get; set; }
         public DateTime Date { get; set; }
-
         public List<Question> Questions { get; set; }
-
         public Test()
         {
             Questions = new List<Question>();
         }
-
-
-        //public ICollection<Question> Questions { get; set; }
-      
-
     }
 }

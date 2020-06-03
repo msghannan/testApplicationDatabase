@@ -9,7 +9,6 @@ namespace TestApplicationDatabase.Models
     {
         public int Id { get; set; }
         public Person Student { get; set; }
-
         public Test Exam { get; set; }
         public string Grade { get; set; }
     }

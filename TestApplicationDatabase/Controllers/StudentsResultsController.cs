@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestApplicationDatabase.Data;
 using TestApplicationDatabase.Models;
+using TestApplicationDatabase.ViewModels;
 
 namespace TestApplicationDatabase.Controllers
 {
@@ -23,9 +24,23 @@ namespace TestApplicationDatabase.Controllers
 
         // GET: api/StudentsResults
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StudentsResults>>> GetStudentsResults()
+        public async Task<ActionResult<IEnumerable<ExamHistoryViewModel>>> GetStudentsResults()
         {
-            return await _context.StudentsResults.ToListAsync();
+            var allTests= await _context.StudentsResults.ToListAsync();
+            List<ExamHistoryViewModel> exam = new List<ExamHistoryViewModel>();
+
+            foreach(var test in allTests)
+            {
+                exam.Add(new ExamHistoryViewModel()
+                {
+                    Person = _context.Person.Where(x => x.Id == test.PersonId).FirstOrDefault(),
+                    Test = _context.Test.Where(x => x.ID == test.TestId).FirstOrDefault(),
+                    Grade = test.Grade,
+                    Id = test.Id
+                });
+            }
+
+            return exam;
         }
 
         // GET: api/StudentsResults/5

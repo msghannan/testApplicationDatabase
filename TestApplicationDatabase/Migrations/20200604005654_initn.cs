@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestApplicationDatabase.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,10 +44,9 @@ namespace TestApplicationDatabase.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TestName = table.Column<string>(nullable: true),
-                    StudentFirstName = table.Column<string>(nullable: true),
-                    StudentLastName = table.Column<string>(nullable: true),
-                    Grade = table.Column<string>(nullable: true)
+                    Grade = table.Column<string>(nullable: true),
+                    PersonId = table.Column<int>(nullable: false),
+                    TestId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,7 +61,6 @@ namespace TestApplicationDatabase.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TestName = table.Column<string>(nullable: true),
                     MaxPoints = table.Column<double>(nullable: false),
-                    NumberOfQuestions = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

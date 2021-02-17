@@ -12,48 +12,48 @@ namespace TestApplicationDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TeachersController : ControllerBase
+    public class AnswersController : ControllerBase
     {
         private readonly TestApplicationDatabaseContext _context;
 
-        public TeachersController(TestApplicationDatabaseContext context)
+        public AnswersController(TestApplicationDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Teachers
+        // GET: api/Answers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeacher()
+        public async Task<ActionResult<IEnumerable<Answer>>> GetAnswer()
         {
-            return await _context.Teacher.ToListAsync();
+            return await _context.Answer.ToListAsync();
         }
 
-        // GET: api/Teachers/5
+        // GET: api/Answers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Teacher>> GetTeacher(int id)
+        public async Task<ActionResult<Answer>> GetAnswer(int id)
         {
-            var teacher = await _context.Teacher.FindAsync(id);
+            var answer = await _context.Answer.FindAsync(id);
 
-            if (teacher == null)
+            if (answer == null)
             {
                 return NotFound();
             }
 
-            return teacher;
+            return answer;
         }
 
-        // PUT: api/Teachers/5
+        // PUT: api/Answers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
+        public async Task<IActionResult> PutAnswer(int id, Answer answer)
         {
-            if (id != teacher.Id)
+            if (id != answer.AnswerId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(teacher).State = EntityState.Modified;
+            _context.Entry(answer).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace TestApplicationDatabase.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TeacherExists(id))
+                if (!AnswerExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace TestApplicationDatabase.Controllers
             return NoContent();
         }
 
-        // POST: api/Teachers
+        // POST: api/Answers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
+        public async Task<ActionResult<Answer>> PostAnswer(Answer answer)
         {
-            _context.Teacher.Add(teacher);
+            _context.Answer.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
+            return CreatedAtAction("GetAnswer", new { id = answer.AnswerId }, answer);
         }
 
-        // DELETE: api/Teachers/5
+        // DELETE: api/Answers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Teacher>> DeleteTeacher(int id)
+        public async Task<ActionResult<Answer>> DeleteAnswer(int id)
         {
-            var teacher = await _context.Teacher.FindAsync(id);
-            if (teacher == null)
+            var answer = await _context.Answer.FindAsync(id);
+            if (answer == null)
             {
                 return NotFound();
             }
 
-            _context.Teacher.Remove(teacher);
+            _context.Answer.Remove(answer);
             await _context.SaveChangesAsync();
 
-            return teacher;
+            return answer;
         }
 
-        private bool TeacherExists(int id)
+        private bool AnswerExists(int id)
         {
-            return _context.Teacher.Any(e => e.Id == id);
+            return _context.Answer.Any(e => e.AnswerId == id);
         }
     }
 }

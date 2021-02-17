@@ -48,7 +48,7 @@ namespace TestApplicationDatabase.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTest(int id, Test test)
         {
-            if (id != test.TestId)
+            if (id != test.ID)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace TestApplicationDatabase.Controllers
             _context.Test.Add(test);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTest", new { id = test.TestId }, test);
+            return CreatedAtAction("GetTest", new { id = test.ID }, test);
         }
 
         // DELETE: api/Tests/5
@@ -104,7 +104,7 @@ namespace TestApplicationDatabase.Controllers
 
         private bool TestExists(int id)
         {
-            return _context.Test.Any(e => e.TestId == id);
+            return _context.Test.Any(e => e.ID == id);
         }
     }
 }

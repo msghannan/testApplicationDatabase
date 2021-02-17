@@ -12,48 +12,48 @@ namespace TestApplicationDatabase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountLoginsController : ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly TestApplicationDatabaseContext _context;
 
-        public AccountLoginsController(TestApplicationDatabaseContext context)
+        public RolesController(TestApplicationDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/AccountLogins
+        // GET: api/Roles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AccountLogin>>> GetAccountLogin()
+        public async Task<ActionResult<IEnumerable<Role>>> GetRole()
         {
-            return await _context.AccountLogin.ToListAsync();
+            return await _context.Role.ToListAsync();
         }
 
-        // GET: api/AccountLogins/5
+        // GET: api/Roles/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AccountLogin>> GetAccountLogin(int id)
+        public async Task<ActionResult<Role>> GetRole(int id)
         {
-            var accountLogin = await _context.AccountLogin.FindAsync(id);
+            var role = await _context.Role.FindAsync(id);
 
-            if (accountLogin == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return accountLogin;
+            return role;
         }
 
-        // PUT: api/AccountLogins/5
+        // PUT: api/Roles/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccountLogin(int id, AccountLogin accountLogin)
+        public async Task<IActionResult> PutRole(int id, Role role)
         {
-            if (id != accountLogin.Id)
+            if (id != role.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(accountLogin).State = EntityState.Modified;
+            _context.Entry(role).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace TestApplicationDatabase.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountLoginExists(id))
+                if (!RoleExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace TestApplicationDatabase.Controllers
             return NoContent();
         }
 
-        // POST: api/AccountLogins
+        // POST: api/Roles
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<AccountLogin>> PostAccountLogin(AccountLogin accountLogin)
+        public async Task<ActionResult<Role>> PostRole(Role role)
         {
-            _context.AccountLogin.Add(accountLogin);
+            _context.Role.Add(role);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAccountLogin", new { id = accountLogin.Id }, accountLogin);
+            return CreatedAtAction("GetRole", new { id = role.Id }, role);
         }
 
-        // DELETE: api/AccountLogins/5
+        // DELETE: api/Roles/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AccountLogin>> DeleteAccountLogin(int id)
+        public async Task<ActionResult<Role>> DeleteRole(int id)
         {
-            var accountLogin = await _context.AccountLogin.FindAsync(id);
-            if (accountLogin == null)
+            var role = await _context.Role.FindAsync(id);
+            if (role == null)
             {
                 return NotFound();
             }
 
-            _context.AccountLogin.Remove(accountLogin);
+            _context.Role.Remove(role);
             await _context.SaveChangesAsync();
 
-            return accountLogin;
+            return role;
         }
 
-        private bool AccountLoginExists(int id)
+        private bool RoleExists(int id)
         {
-            return _context.AccountLogin.Any(e => e.Id == id);
+            return _context.Role.Any(e => e.Id == id);
         }
     }
 }

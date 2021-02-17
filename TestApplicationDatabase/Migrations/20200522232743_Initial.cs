@@ -8,18 +8,18 @@ namespace TestApplicationDatabase.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AccountLogin",
+                name: "Answer",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    AnswerId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: false)
+                    Ans = table.Column<string>(nullable: true),
+                    CorrectAnswer = table.Column<bool>(nullable: false),
+                    QuestionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountLogin", x => x.Id);
+                    table.PrimaryKey("PK_Answer", x => x.AnswerId);
                 });
 
             migrationBuilder.CreateTable(
@@ -28,15 +28,29 @@ namespace TestApplicationDatabase.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    firstName = table.Column<string>(nullable: true),
-                    lastName = table.Column<string>(nullable: true),
-                    email = table.Column<string>(nullable: true),
-                    phoNum = table.Column<string>(nullable: true),
-                    title = table.Column<string>(nullable: false)
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Person", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonTest",
+                columns: table => new
+                {
+                    PersonId = table.Column<int>(nullable: false),
+                    TestId = table.Column<int>(nullable: false),
+                    ID = table.Column<int>(nullable: false),
+                    Score = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonTest", x => new { x.PersonId, x.TestId });
                 });
 
             migrationBuilder.CreateTable(
@@ -53,76 +67,76 @@ namespace TestApplicationDatabase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Student",
+                name: "StudentsResults",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    firstName = table.Column<string>(nullable: true),
-                    lastName = table.Column<string>(nullable: true),
-                    email = table.Column<string>(nullable: true),
-                    phoNum = table.Column<string>(nullable: true),
-                    title = table.Column<string>(nullable: false),
+                    TestName = table.Column<string>(nullable: true),
+                    StudentFirstName = table.Column<string>(nullable: true),
+                    StudentLastName = table.Column<string>(nullable: true),
                     Grade = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teacher",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    firstName = table.Column<string>(nullable: true),
-                    lastName = table.Column<string>(nullable: true),
-                    email = table.Column<string>(nullable: true),
-                    phoNum = table.Column<string>(nullable: true),
-                    title = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teacher", x => x.Id);
+                    table.PrimaryKey("PK_StudentsResults", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Test",
                 columns: table => new
                 {
-                    TestId = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TestId = table.Column<int>(nullable: false),
                     TestName = table.Column<string>(nullable: true),
-                    MaxPoints = table.Column<int>(nullable: false),
-                    TestDate = table.Column<DateTime>(nullable: false)
+                    MaxPoints = table.Column<double>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Test", x => x.TestId);
+                    table.PrimaryKey("PK_Test", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonTest",
+                name: "Account",
                 columns: table => new
                 {
-                    PersonId = table.Column<int>(nullable: false),
-                    TestId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    PersonId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PersonTest", x => new { x.PersonId, x.TestId });
+                    table.PrimaryKey("PK_Account", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PersonTest_Person_PersonId",
+                        name: "FK_Account_Person_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Teacher = table.Column<bool>(nullable: false),
+                    Student = table.Column<bool>(nullable: false),
+                    PersonId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PersonTest_Test_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Test",
-                        principalColumn: "TestId",
+                        name: "FK_Role_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -146,25 +160,35 @@ namespace TestApplicationDatabase.Migrations
                         name: "FK_QuestionTest_Test_TestId",
                         column: x => x.TestId,
                         principalTable: "Test",
-                        principalColumn: "TestId",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonTest_TestId",
-                table: "PersonTest",
-                column: "TestId");
+                name: "IX_Account_PersonId",
+                table: "Account",
+                column: "PersonId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionTest_TestId",
                 table: "QuestionTest",
                 column: "TestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Role_PersonId",
+                table: "Role",
+                column: "PersonId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AccountLogin");
+                name: "Account");
+
+            migrationBuilder.DropTable(
+                name: "Answer");
 
             migrationBuilder.DropTable(
                 name: "PersonTest");
@@ -173,19 +197,19 @@ namespace TestApplicationDatabase.Migrations
                 name: "QuestionTest");
 
             migrationBuilder.DropTable(
-                name: "Student");
+                name: "Role");
 
             migrationBuilder.DropTable(
-                name: "Teacher");
-
-            migrationBuilder.DropTable(
-                name: "Person");
+                name: "StudentsResults");
 
             migrationBuilder.DropTable(
                 name: "Question");
 
             migrationBuilder.DropTable(
                 name: "Test");
+
+            migrationBuilder.DropTable(
+                name: "Person");
         }
     }
 }
